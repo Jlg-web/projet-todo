@@ -94,11 +94,9 @@
 	 */
 	Controller.prototype.addItem = function (title) {
 		var self = this;
-
 		if (title.trim() === '') {
 			return;
 		}
-
 		self.model.create(title, function () {
 			self.view.render('clearNewTodo');
 			self._filter(true);
