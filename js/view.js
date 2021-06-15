@@ -1,17 +1,21 @@
 /*global qs, qsa, $on, $parent, $delegate */
-
-(function (window) {
+/**
+ * @class
+ */
+ (function (window) {
 	'use strict';
 
 	/**
-	     * View that abstracts away the browser's DOM completely.
-	     * It has two simple entry points:
-	     *
-	     *   - bind(eventName, handler)
-	     *     Takes a todo application event and registers the handler
-	     *   - render(command, parameterObject)
-	     *     Renders the given command with the options
-	     */
+	* View that abstracts away the browser's DOM completely.
+	* It has two simple entry points:
+	*   - bind(eventName, handler)
+	*     Takes a todo application event and registers the handler
+	*   - render(command, parameterObject)
+	*     Renders the given command with the options
+	* @constructor View
+	* @name View	
+	* @param {object} template The template
+	*/
 	function View(template) {
 		this.template = template;
 
@@ -27,6 +31,12 @@
 		this.$newTodo = qs('.new-todo');
 	}
 
+	/**
+	 * Removes a item from view
+	 * @method
+	 * @name View._removeItem
+	 * @param {number} id The ID of the item to remove
+	 */
 	View.prototype._removeItem = function (id) {
 		var elem = qs('[data-id="' + id + '"]');
 
@@ -34,17 +44,34 @@
 			this.$todoList.removeChild(elem);
 		}
 	};
-
+	/**
+	 * Updates the display of the "Clear completed" button
+	 * @method
+	 * @name View._clearCompletedButton
+	 * @param {number} completedCount ...
+	 * @param {boolean} visible ...
+	 */
 	View.prototype._clearCompletedButton = function (completedCount, visible) {
 		this.$clearCompleted.innerHTML = this.template.clearCompletedButton(completedCount);
 		this.$clearCompleted.style.display = visible ? 'block' : 'none';
 	};
-
+	/**
+	 * Set filter
+	 * @method
+	 * @name View._setFilter
+	 * @param {string} currentPage The current active route
+	 */
 	View.prototype._setFilter = function (currentPage) {
 		qs('.filters .selected').className = '';
 		qs('.filters [href="#/' + currentPage + '"]').className = 'selected';
 	};
-
+	/**
+	 * set the view of a element completed
+	 * @method
+	 * @name View._elementComplete
+	 * @param {number} id The ID of the item
+	 * @param {object} completed The state of complete or not
+	 */
 	View.prototype._elementComplete = function (id, completed) {
 		var listItem = qs('[data-id="' + id + '"]');
 
@@ -57,7 +84,13 @@
 		// In case it was toggled from an event and not by clicking the checkbox
 		qs('input', listItem).checked = completed;
 	};
-
+	/**
+	 * The edit view of an item 
+	 * @method
+	 * @name View._editItem
+	 * @param {number} id The Id of the item
+	 * @param {string} title The Title of the item
+	 */
 	View.prototype._editItem = function (id, title) {
 		var listItem = qs('[data-id="' + id + '"]');
 
@@ -74,7 +107,13 @@
 		input.focus();
 		input.value = title;
 	};
-
+	/**
+	 * The edit view of an item done
+	 * @method
+	 * @name View._editItemDone
+	 * @param {number} id The Id of the item
+	 * @param {string} title The Title of the item
+	 */
 	View.prototype._editItemDone = function (id, title) {
 		var listItem = qs('[data-id="' + id + '"]');
 
@@ -91,7 +130,13 @@
 			label.textContent = title;
 		});
 	};
-
+	/**
+	 * Render view
+	 * @method
+	 * @name View.render
+	 * @param {string} viewCmd Name of the command
+	 * @param {object} parameter Parameters of the command
+	 */
 	View.prototype.render = function (viewCmd, parameter) {
 		var self = this;
 		var viewCommands = {
@@ -132,12 +177,22 @@
 
 		viewCommands[viewCmd]();
 	};
-
+	/**
+	 * View of Id item
+	 * @method
+	 * @name View._itemId
+	 * @param {string} element ...
+	 */
 	View.prototype._itemId = function (element) {
 		var li = $parent(element, 'li');
 		return parseInt(li.dataset.id, 10);
 	};
-
+	/**
+	 * Handler Item Edit Done
+	 * @method
+	 * @name View._bindItemEditDone
+	 * @param {function} handler 
+	 */
 	View.prototype._bindItemEditDone = function (handler) {
 		var self = this;
 		$delegate(self.$todoList, 'li .edit', 'blur', function () {
@@ -157,7 +212,12 @@
 			}
 		});
 	};
-
+	/**
+	 * Handler Item Edit Cancel
+	 * @method
+	 * @name View._bindItemEditCancel
+	 * @param {function} handler 
+	 */
 	View.prototype._bindItemEditCancel = function (handler) {
 		var self = this;
 		$delegate(self.$todoList, 'li .edit', 'keyup', function (event) {
@@ -169,48 +229,58 @@
 			}
 		});
 	};
-
+	/**
+	 * Handler
+	 * @method
+	 * @name View.bind
+	 * @param {string} event 
+	 * @param {function} handler 
+	 */
 	View.prototype.bind = function (event, handler) {
 		var self = this;
-		if (event === 'newTodo') {
-			$on(self.$newTodo, 'change', function () {
+		switch (event) {
+			case 'newTodo':
+				$on(self.$newTodo, 'change', function () {
 				handler(self.$newTodo.value);
-			});
-
-		} else if (event === 'removeCompleted') {
-			$on(self.$clearCompleted, 'click', function () {
+				});
+				break;
+			case 'removeCompleted':
+				$on(self.$clearCompleted, 'click', function () {
 				handler();
-			});
-
-		} else if (event === 'toggleAll') {
-			$on(self.$toggleAll, 'click', function () {
+				});
+				break;
+			case 'toggleAll':
+				$on(self.$toggleAll, 'click', function () {
 				handler({completed: this.checked});
-			});
-
-		} else if (event === 'itemEdit') {
-			$delegate(self.$todoList, 'li label', 'dblclick', function () {
+				});
+				break;
+			case 'itemEdit':
+				$delegate(self.$todoList, 'li label', 'dblclick', function () {
 				handler({id: self._itemId(this)});
-			});
-
-		} else if (event === 'itemRemove') {
-			$delegate(self.$todoList, '.destroy', 'click', function () {
+				});
+				break;
+			case 'itemRemove':
+				$delegate(self.$todoList, '.destroy', 'click', function () {
 				handler({id: self._itemId(this)});
-			});
-
-		} else if (event === 'itemToggle') {
-			$delegate(self.$todoList, '.toggle', 'click', function () {
+				});
+				break;
+			case 'itemToggle':
+				$delegate(self.$todoList, '.toggle', 'click', function () {
 				handler({
 					id: self._itemId(this),
 					completed: this.checked
 				});
-			});
-
-		} else if (event === 'itemEditDone') {
-			self._bindItemEditDone(handler);
-
-		} else if (event === 'itemEditCancel') {
-			self._bindItemEditCancel(handler);
-		}
+				});
+				break;
+			case 'itemEditDone':
+				self._bindItemEditDone(handler);
+				break;
+			case 'itemEditCancel':
+				self._bindItemEditCancel(handler);
+				break;
+			default:
+				return;
+		};
 	};
 
 	// Export to window

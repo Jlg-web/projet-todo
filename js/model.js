@@ -1,10 +1,14 @@
-(function (window) {
+/**
+ * @class
+ */
+ (function (window) {
 	'use strict';
 
 	/**
 	 * Creates a new Model instance and hooks up the storage.
 	 *
-	 * @constructor
+	 * @constructor Model
+	 * @name Model
 	 * @param {object} storage A reference to the client side storage class
 	 */
 	function Model(storage) {
@@ -13,7 +17,8 @@
 
 	/**
 	 * Creates a new todo model
-	 *
+	 * @method
+	 * @name Model.create
 	 * @param {string} [title] The title of the task
 	 * @param {function} [callback] The callback to fire after the model is created
 	 */
@@ -34,7 +39,8 @@
 	 * return everything. If you pass in a string or number it'll look that up as
 	 * the ID of the model to find. Lastly, you can pass it an object to match
 	 * against.
-	 *
+	 * @method
+	 * @name Model.read
 	 * @param {string|number|object} [query] A query to match models against
 	 * @param {function} [callback] The callback to fire after the model is found
 	 *
@@ -62,7 +68,8 @@
 	/**
 	 * Updates a model by giving it an ID, data to update, and a callback to fire when
 	 * the update is complete.
-	 *
+	 * @method
+	 * @name Model.update
 	 * @param {number} id The id of the model to update
 	 * @param {object} data The properties to update and their new value
 	 * @param {function} callback The callback to fire when the update is complete.
@@ -73,7 +80,8 @@
 
 	/**
 	 * Removes a model from storage
-	 *
+	 * @method
+	 * @name Model.remove
 	 * @param {number} id The ID of the model to remove
 	 * @param {function} callback The callback to fire when the removal is complete.
 	 */
@@ -83,7 +91,8 @@
 
 	/**
 	 * WARNING: Will remove ALL data from storage.
-	 *
+	 * @method
+	 * @name Model.removeAll
 	 * @param {function} callback The callback to fire when the storage is wiped.
 	 */
 	Model.prototype.removeAll = function (callback) {
@@ -92,6 +101,8 @@
 
 	/**
 	 * Returns a count of all todos
+	 * @method
+	 * @name Model.getCount
 	 */
 	Model.prototype.getCount = function (callback) {
 		var todos = {
