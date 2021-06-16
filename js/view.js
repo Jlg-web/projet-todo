@@ -6,15 +6,10 @@
 	'use strict';
 
 	/**
-	* View that abstracts away the browser's DOM completely.
-	* It has two simple entry points:
-	*   - bind(eventName, handler)
-	*     Takes a todo application event and registers the handler
-	*   - render(command, parameterObject)
-	*     Renders the given command with the options
+	* Vue qui supprime complètement le DOM du navigateur.
 	* @constructor View
 	* @name View	
-	* @param {object} template The template
+	* @param {object} template Template
 	*/
 	function View(template) {
 		this.template = template;
@@ -32,10 +27,10 @@
 	}
 
 	/**
-	 * Removes a item from view
+	 * Supprime un élément de la vue
 	 * @method
 	 * @name View._removeItem
-	 * @param {number} id The ID of the item to remove
+	 * @param {number} id L'ID de l'élément à supprimer
 	 */
 	View.prototype._removeItem = function (id) {
 		var elem = qs('[data-id="' + id + '"]');
@@ -45,7 +40,7 @@
 		}
 	};
 	/**
-	 * Updates the display of the "Clear completed" button
+	 * Met à jour l'affichage du bouton "clear completed"
 	 * @method
 	 * @name View._clearCompletedButton
 	 * @param {number} completedCount ...
@@ -56,21 +51,21 @@
 		this.$clearCompleted.style.display = visible ? 'block' : 'none';
 	};
 	/**
-	 * Set filter
+	 * Définir le filtre
 	 * @method
 	 * @name View._setFilter
-	 * @param {string} currentPage The current active route
+	 * @param {string} currentPage
 	 */
 	View.prototype._setFilter = function (currentPage) {
 		qs('.filters .selected').className = '';
 		qs('.filters [href="#/' + currentPage + '"]').className = 'selected';
 	};
 	/**
-	 * set the view of a element completed
+	 * Définir la vue d'un élément terminé
 	 * @method
 	 * @name View._elementComplete
-	 * @param {number} id The ID of the item
-	 * @param {object} completed The state of complete or not
+	 * @param {number} id L'identifiant de l'item
+	 * @param {object} completed L'état d'achèvement ou non
 	 */
 	View.prototype._elementComplete = function (id, completed) {
 		var listItem = qs('[data-id="' + id + '"]');
@@ -81,15 +76,17 @@
 
 		listItem.className = completed ? 'completed' : '';
 
-		// In case it was toggled from an event and not by clicking the checkbox
+		/**
+		 * Dans le cas où il a été basculé à partir d'un événement et non en cliquant sur la case à cocher
+		*/
 		qs('input', listItem).checked = completed;
 	};
 	/**
-	 * The edit view of an item 
+	 * La vue d'édition d'un élément
 	 * @method
 	 * @name View._editItem
-	 * @param {number} id The Id of the item
-	 * @param {string} title The Title of the item
+	 * @param {number} id L'identifiant de l'article
+	 * @param {string} title Le titre de l'article
 	 */
 	View.prototype._editItem = function (id, title) {
 		var listItem = qs('[data-id="' + id + '"]');
@@ -108,11 +105,11 @@
 		input.value = title;
 	};
 	/**
-	 * The edit view of an item done
+	 * La vue d'édition d'un élément terminé
 	 * @method
 	 * @name View._editItemDone
-	 * @param {number} id The Id of the item
-	 * @param {string} title The Title of the item
+	 * @param {number} id L'identifiant de l'item
+	 * @param {string} title Le titre de l'item
 	 */
 	View.prototype._editItemDone = function (id, title) {
 		var listItem = qs('[data-id="' + id + '"]');
@@ -131,11 +128,11 @@
 		});
 	};
 	/**
-	 * Render view
+	 * Rendu de la vue
 	 * @method
 	 * @name View.render
-	 * @param {string} viewCmd Name of the command
-	 * @param {object} parameter Parameters of the command
+	 * @param {string} viewCmd Nom de la commande
+	 * @param {object} parameter Paramètres de la commande
 	 */
 	View.prototype.render = function (viewCmd, parameter) {
 		var self = this;
@@ -178,7 +175,7 @@
 		viewCommands[viewCmd]();
 	};
 	/**
-	 * View of Id item
+	 * Vue de l'élément d'ID
 	 * @method
 	 * @name View._itemId
 	 * @param {string} element ...
@@ -188,7 +185,7 @@
 		return parseInt(li.dataset.id, 10);
 	};
 	/**
-	 * Handler Item Edit Done
+	 * Modification de l'élément du gestionnaire terminée
 	 * @method
 	 * @name View._bindItemEditDone
 	 * @param {function} handler 
@@ -206,14 +203,12 @@
 
 		$delegate(self.$todoList, 'li .edit', 'keypress', function (event) {
 			if (event.keyCode === self.ENTER_KEY) {
-				// Remove the cursor from the input when you hit enter just like if it
-				// were a real form
 				this.blur();
 			}
 		});
 	};
 	/**
-	 * Handler Item Edit Cancel
+	 * Élément du gestionnaire "Edit/Cancel"
 	 * @method
 	 * @name View._bindItemEditCancel
 	 * @param {function} handler 
@@ -230,7 +225,7 @@
 		});
 	};
 	/**
-	 * Handler
+	 * Gestionnaire
 	 * @method
 	 * @name View.bind
 	 * @param {string} event 

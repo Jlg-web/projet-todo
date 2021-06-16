@@ -111,7 +111,7 @@
 
 
 <div class="description usertext">
-    <p>Creates a new Model instance and hooks up the storage.</p>
+    <p>Crée une nouvelle instance de modèle</p>
 </div>
 
 
@@ -165,7 +165,7 @@
 
             
 
-            <td class="description last"><p>A reference to the client side storage class</p></td>
+            <td class="description last"><p>Une référence à la classe de stockage côté client</p></td>
         </tr>
 
     
@@ -268,7 +268,7 @@
 
 
 <div class="description usertext">
-    <p>Creates a new todo model</p>
+    <p>Crée un nouveau model de todo.</p>
 </div>
 
 
@@ -334,7 +334,7 @@
 
             
 
-            <td class="description last"><p>The title of the task</p></td>
+            <td class="description last"><p>Le titre de la tâche</p></td>
         </tr>
 
     
@@ -367,7 +367,7 @@
 
             
 
-            <td class="description last"><p>The callback to fire after the model is created</p></td>
+            <td class="description last"><p>callback après la création du model</p></td>
         </tr>
 
     
@@ -409,7 +409,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js.html">model.js</a>, <a href="model.js.html#line102">line 102</a>
+        <a href="model.js.html">model.js</a>, <a href="model.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -449,7 +449,7 @@
 
 
 <div class="description usertext">
-    <p>Returns a count of all todos</p>
+    <p>Renvoie un décompte de toutes les tâches</p>
 </div>
 
 
@@ -536,10 +536,7 @@
 
 
 <div class="description usertext">
-    <p>Finds and returns a model in storage. If no query is given it'll simply
-return everything. If you pass in a string or number it'll look that up as
-the ID of the model to find. Lastly, you can pass it an object to match
-against.</p>
+    <p>Trouve et retourne un modèle en stockage</p>
 </div>
 
 
@@ -548,14 +545,6 @@ against.</p>
 
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>model.read(1, func); // Will find the model with an ID of 1
-model.read('1'); // Same as above
-//Below will find a model with foo equalling bar and hello equalling world.
-model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
 
 
@@ -619,7 +608,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
             
 
-            <td class="description last"><p>A query to match models against</p></td>
+            <td class="description last"><p>Une requête pour faire correspondre les modèles</p></td>
         </tr>
 
     
@@ -652,7 +641,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
             
 
-            <td class="description last"><p>The callback to fire after the model is found</p></td>
+            <td class="description last"><p>callback</p></td>
         </tr>
 
     
@@ -694,7 +683,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js.html">model.js</a>, <a href="model.js.html#line81">line 81</a>
+        <a href="model.js.html">model.js</a>, <a href="model.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -734,7 +723,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
 
 <div class="description usertext">
-    <p>Removes a model from storage</p>
+    <p>Supprime un modèle du stockage</p>
 </div>
 
 
@@ -788,7 +777,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
             
 
-            <td class="description last"><p>The ID of the model to remove</p></td>
+            <td class="description last"><p>L'ID du modèle à supprimer</p></td>
         </tr>
 
     
@@ -811,7 +800,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
             
 
-            <td class="description last"><p>The callback to fire when the removal is complete.</p></td>
+            <td class="description last"><p>Le rappel à déclencher lorsque la suppression est terminée.</p></td>
         </tr>
 
     
@@ -853,7 +842,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js.html">model.js</a>, <a href="model.js.html#line92">line 92</a>
+        <a href="model.js.html">model.js</a>, <a href="model.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -893,7 +882,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
 
 <div class="description usertext">
-    <p>WARNING: Will remove ALL data from storage.</p>
+    <p>WARNING: supprime TOUTES les données du stockage.</p>
 </div>
 
 
@@ -989,7 +978,7 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js.html">model.js</a>, <a href="model.js.html#line68">line 68</a>
+        <a href="model.js.html">model.js</a>, <a href="model.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -1029,8 +1018,8 @@ model.read({ foo: 'bar', hello: 'world' });</code></pre>
 
 
 <div class="description usertext">
-    <p>Updates a model by giving it an ID, data to update, and a callback to fire when
-the update is complete.</p>
+    <p>Met à jour un modèle en lui donnant un ID, des données à mettre à jour et un rappel à déclencher lorsque
+la mise à jour est terminée.</p>
 </div>
 
 
@@ -1084,7 +1073,7 @@ the update is complete.</p>
 
             
 
-            <td class="description last"><p>The id of the model to update</p></td>
+            <td class="description last"><p>L'identifiant du modèle à mettre à jour</p></td>
         </tr>
 
     
@@ -1107,7 +1096,7 @@ the update is complete.</p>
 
             
 
-            <td class="description last"><p>The properties to update and their new value</p></td>
+            <td class="description last"><p>Les propriétés à mettre à jour et leur nouvelle valeur</p></td>
         </tr>
 
     
@@ -1130,7 +1119,7 @@ the update is complete.</p>
 
             
 
-            <td class="description last"><p>The callback to fire when the update is complete.</p></td>
+            <td class="description last"><p>Le rappel à déclencher lorsque la mise à jour est terminée.</p></td>
         </tr>
 
     
@@ -1175,7 +1164,7 @@ the update is complete.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Jun 15 2021 23:52:00 GMT+0200 (GMT+02:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Wed Jun 16 2021 14:53:03 GMT+0200 (GMT+02:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

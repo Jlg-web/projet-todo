@@ -28,9 +28,9 @@
 	};
 
 	/**
-	 * Sets up defaults for all the Template methods such as a default template
+	 * Configure les valeurs par défaut pour toutes les méthodes de modèle telles qu'un modèle par défaut
 	 *
-	 * @constructor Template
+	 * @constructor
 	 * @name Template
 	 */
 	function Template() {
@@ -45,22 +45,11 @@
 	}
 
 	/**
-	 * Creates an <li> HTML string and returns it for placement in your app.
-	 *
-	 * NOTE: In real life you should be using a templating engine such as Mustache
-	 * or Handlebars, however, this is a vanilla JS example.
+	 * Crée une chaîne HTML <li> et la renvoie pour placement dans votre application.
 	 * @method
 	 * @name Template.show
-	 * @param {object} data The object containing keys you want to find in the
-	 *                      template to replace.
-	 * @returns {string} HTML String of an <li> element
-	 *
-	 * @example
-	 * view.show({
-	 *	id: 1,
-	 *	title: "Hello World",
-	 *	completed: 0,
-	 * });
+	 * @param {object} data
+	 * @returns {string} Chaîne HTML d'un élément <li>
 	 */
 	Template.prototype.show = function (data) {
 		var view = '';
@@ -87,11 +76,11 @@
 	};
 
 	/**
-	 * Displays a counter of how many to dos are left to complete
+	 * Affiche un compteur du nombre de tâches restant à accomplir
 	 * @method
 	 * @name Template.itemCounter
-	 * @param {number} activeTodos The number of active todos.
-	 * @returns {string} String containing the count
+	 * @param {number} activeTodos Le nombre de tâches actives.
+	 * @returns {string} Chaîne contenant le nombre
 	 */
 	Template.prototype.itemCounter = function (activeTodos) {
 		var plural = activeTodos === 1 ? '' : 's';
@@ -100,11 +89,11 @@
 	};
 
 	/**
-	 * Updates the text within the "Clear completed" button
+	 * Met à jour le texte dans le bouton "Effacer terminé"
 	 * @method
 	 * @name Template.clearCompletedButton
-	 * @param  {number} completedTodos The number of completed todos.
-	 * @returns {string} String containing the count
+	 * @param  {number} completedTodos 	Le nombre de tâches terminées.
+	 * @returns {string} Chaîne contenant le nombre
 	 */
 	Template.prototype.clearCompletedButton = function (completedTodos) {
 		if (completedTodos > 0) {

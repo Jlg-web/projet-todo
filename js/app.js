@@ -2,9 +2,9 @@
 	'use strict';
 
 	/**
-	 * Sets up a brand new Todo list.
+	 * Configuration d'une nouvelle liste de tâches
 	 * @function Todo
-	 * @param {string} name The name of your new to do list.
+	 * @param {string} name Nom de la nouvelle liste
 	 * 
 	 */
 	function Todo(name) {

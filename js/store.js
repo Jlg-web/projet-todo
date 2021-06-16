@@ -6,14 +6,12 @@
 	'use strict';
 
 	/**
-	 * Creates a new client side storage object and will create an empty
-	 * collection if no collection already exists.
+	 * Crée un nouvel objet de stockage côté client
 	 *
 	 * @constructor Store
 	 * @name Store
-	 * @param {string} name The name of our DB we want to use
-	 * @param {function} callback Our fake DB uses callbacks because in
-	 * real life you probably would be making AJAX calls
+	 * @param {string} name 
+	 * @param {function} callbackLa fonction de rappel après avoir déposé les données
 	 */
 	function Store(name, callback) {
 		callback = callback || function () {};
@@ -32,18 +30,11 @@
 	}
 
 	/**
-	 * Finds items based on a query given as a JS object
+	 * Recherche des éléments en fonction d'une requête donnée en tant qu'objet JS
 	 * @method
 	 * @name Store.find
-	 * @param {object} query The query to match against (i.e. {foo: 'bar'})
-	 * @param {function} callback	 The callback to fire when the query has
-	 * completed running
-	 *
-	 * @example
-	 * db.find({foo: 'bar', hello: 'world'}, function (data) {
-	 *	 // data will return any items that have foo: bar and
-	 *	 // hello: world in their properties
-	 * });
+	 * @param {object} query 
+	 * @param {function} callback	
 	 */
 	Store.prototype.find = function (query, callback) {
 		if (!callback) {
@@ -63,10 +54,10 @@
 	};
 
 	/**
-	 * Will retrieve all data from the collection
+	 * Récupérera toutes les données de la collection
 	 * @method
 	 * @name Store.findAll
-	 * @param {function} callback The callback to fire upon retrieving data
+	 * @param {function} callback
 	 */
 	Store.prototype.findAll = function (callback) {
 		callback = callback || function () {};
@@ -74,13 +65,12 @@
 	};
 
 	/**
-	 * Will save the given data to the DB. If no item exists it will create a new
-	 * item, otherwise it'll simply update an existing item's properties
+	 * Sauvegardera les données fournies dans la base de données	
 	 * @method
 	 * @name Store.save
-	 * @param {object} updateData The data to save back into the DB
-	 * @param {function} callback The callback to fire after saving
-	 * @param {number} id An optional param to enter an ID of an item to update
+	 * @param {object} updateData
+	 * @param {function} callback 
+	 * @param {number} id 
 	 */
 	Store.prototype.save = function (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);
@@ -88,7 +78,9 @@
 
 		callback = callback || function () {};
 		
-		// If an ID was actually given, find the item and update each property
+		/** 
+		 * Si un ID a été réellement donné, recherchez l'élément et mettez à jour chaque propriété
+		*/
 		if (id) {
 			var todo = todos.find(todo => todo.id == id );
 			if (todo) {
@@ -99,18 +91,23 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, todos);
 		} else {
-			// Generate an ID
+			/**
+			 * Generation d'un ID
+			 */ 
 			var newId = ""; 
 			var charset = "0123456789";
-			// Check if an id does not already exist 							
+			/**
+			 * Vérifier si un identifiant n'existe pas déjà		
+			 * */				
 			do {
 				newId = "";
 				for (var i = 0; i < 6; i++) {
 				 newId += charset.charAt(Math.floor(Math.random() * charset.length));
 				}							
-			} while (todos.some(todo => todo.id === parseInt(newId)))
-						
-    		// Assign an ID
+			} while (todos.some(todo => todo.id === parseInt(newId)))		
+    		/** 
+			 * Assignation ID
+			*/ 
 			updateData.id = parseInt(newId);    
 
 			todos.push(updateData);
@@ -120,11 +117,11 @@
 	};
 
 	/**
-	 * Will remove an item from the Store based on its ID
+	 * Supprimera un article de la boutique en fonction de son identifiant
 	 * @method
 	 * @name Store.remove
-	 * @param {number} id The ID of the item you want to remove
-	 * @param {function} callback The callback to fire after saving
+	 * @param {number} id L'ID de l'élément que vous souhaitez supprimer
+	 * @param {function} callback callback
 	 */
 	Store.prototype.remove = function (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);		
@@ -134,10 +131,10 @@
 	};
 
 	/**
-	 * Will drop all storage and start fresh
+	 * Supprime tout le stockage et recommence à zéro
 	 * @method
 	 * @name Store.drop
-	 * @param {function} callback The callback to fire after dropping the data
+	 * @param {function} callback callback
 	 */
 	Store.prototype.drop = function (callback) {
 		var data = {todos: []};
